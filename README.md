@@ -1,6 +1,6 @@
 # bioLQM-io-ts
 
-TypeScript port of the `bioLQM` SBML I/O package.
+TypeScript port of the [bioLQM](https://github.com/colomoto/bioLQM) SBML I/O package.
 
 This package currently focuses on `src/main/java/org/colomoto/biolqm/io/sbml` and the minimum additional `bioLQM` and `JSBML` classes required to load and save SBML-qual models.
 
