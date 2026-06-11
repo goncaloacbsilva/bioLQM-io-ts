@@ -1,0 +1,11 @@
+node_modules/
+dist/
+coverage/
+tests/test-output/
+
+.DS_Store
+*.log
+*.tsbuildinfo
+
+bun.lock
+bun.lockb
