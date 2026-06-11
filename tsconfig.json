@@ -10,12 +10,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "paths": {
-      "mddlib-js": [
-        "node_modules/mddlib-js/src/index.ts"
-      ]
-    }
+    "resolveJsonModule": true
   },
   "include": [
     "src/**/*.ts",
