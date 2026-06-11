@@ -18,7 +18,8 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "prepare": "cd node_modules/mddlib-js && bun run build && cd ../.. && bun run build",
+    "prepare": "echo 'Skipping prepare build; use bun run build when developing locally.'",
+    "prepack": "bun run build",
     "test": "jest --runInBand",
     "test:watch": "jest --watch"
   },
