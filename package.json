@@ -18,8 +18,8 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "prepare": "bun run build",
-    "prepack": "bun run build",
+    "prepare": "npm run build",
+    "prepack": "npm run build",
     "test": "jest --runInBand",
     "test:watch": "jest --watch"
   },
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "fast-xml-parser": "^4.5.0",
-    "mddlib-js": "git+https://github.com/goncaloacbsilva/mddlib-ts.git"
+    "mddlib-ts": "git+https://github.com/goncaloacbsilva/mddlib-ts.git"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",

@@ -3,7 +3,7 @@ import {
   MDDVariable,
   PathSearcher,
   VariableEffect
-} from "mddlib-js";
+} from "mddlib-ts";
 import * as fs from "fs";
 import { Annotation as JSBMLAnnotation } from "../../../_jsbml/Annotation";
 import { ASTNode, ASTNodeType } from "../../../_jsbml/ASTNode";

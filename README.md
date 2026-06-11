@@ -19,7 +19,7 @@ The package uses:
 
 - Bun for dependency management
 - Jest for tests
-- `mddlib-js` as a Git dependency for MDD operations
+- `mddlib-ts` as a Git dependency for MDD operations
 
 ## Requirements
 
@@ -35,7 +35,7 @@ bun install
 
 This installs:
 
-- `mddlib-js` from GitHub
+- `mddlib-ts` from GitHub
 - `fast-xml-parser`
 - `typescript`
 - `jest`
@@ -150,7 +150,7 @@ await LQMServiceManager.save(model, "saved-model.sbml", "sbml");
 
 ### Notes
 
-- this package depends on `mddlib-js`
+- this package depends on `mddlib-ts`
 - the main entrypoint is `dist/index.js`
 - TypeScript declarations are exposed through `dist/index.d.ts`
 - pinning a commit hash is the safest way to keep builds reproducible
