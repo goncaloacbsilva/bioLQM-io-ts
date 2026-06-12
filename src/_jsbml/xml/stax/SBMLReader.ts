@@ -112,7 +112,7 @@ export class SBMLReader {
     return this.parse(chunks.join(""));
   }
 
-  private parse(xml: string): SBMLDocument {
+  parse(xml: string): SBMLDocument {
     const root = this.parser.parse(xml).sbml;
     const document = new SBMLDocument(Number(root["@_level"] ?? 3), Number(root["@_version"] ?? 1));
     const model = document.createModel(root.model?.["@_id"] ?? "model_id");
