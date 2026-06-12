@@ -20,7 +20,7 @@ The package uses:
 
 - Bun for dependency management
 - Jest for tests
-- `mddlib-ts` as a Git dependency for MDD operations
+- a packaged `mddlib-ts` GitHub release artifact for MDD operations
 
 ## Requirements
 
@@ -36,7 +36,7 @@ bun install
 
 This installs:
 
-- `mddlib-ts` from GitHub
+- `mddlib-ts` from the latest packaged GitHub release artifact
 - `fast-xml-parser`
 - `typescript`
 - `jest`
@@ -123,7 +123,7 @@ or:
 bun install
 ```
 
-The package `prepare` script builds the package during Git-based installation.
+The package `prepare` script builds `bioLQM-io-ts` during Git-based installation. `mddlib-ts` is consumed as a prebuilt package tarball from GitHub releases.
 
 ### Import From Your Project
 
@@ -167,7 +167,7 @@ await LQMServiceManager.save(model, "saved-model.bnet", "bnet");
 
 ### Notes
 
-- this package depends on `mddlib-ts`
+- this package depends on the latest packaged `mddlib-ts` release artifact hosted on GitHub
 - the main entrypoint is `dist/index.js`
 - TypeScript declarations are exposed through `dist/index.d.ts`
 - pinning a commit hash is the safest way to keep builds reproducible

@@ -16,13 +16,9 @@
       "default": "./dist/index.js"
     }
   },
-  "trustedDependencies": [
-    "mddlib-ts"
-  ],
   "scripts": {
-    "build:mddlib": "tsc -p node_modules/mddlib-ts/tsconfig.build.json",
     "build": "tsc -p tsconfig.build.json",
-    "prepare": "npm run build:mddlib && npm run build",
+    "prepare": "npm run build",
     "prepack": "npm run build",
     "test": "jest --runInBand",
     "test:watch": "jest --watch"
@@ -33,7 +29,7 @@
   },
   "dependencies": {
     "fast-xml-parser": "^4.5.0",
-    "mddlib-ts": "git+https://github.com/goncaloacbsilva/mddlib-ts.git"
+    "mddlib-ts": "https://github.com/goncaloacbsilva/mddlib-ts/releases/latest/download/mddlib-ts.tgz"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
