@@ -1,4 +1,4 @@
-import type { MDDManager, MDDVariable, VariableEffect } from "../mddlib";
+import type { MDDManager, MDDVariable, VariableEffect } from "mddlib-ts";
 import { LogicalModel } from "./LogicalModel";
 
 export class ConnectivityMatrix {

@@ -1,4 +1,4 @@
-import { FunctionNode, MDDBaseOperators, MDDManager, MDDOperator, SimpleOperandFactory, ValueNode } from "../../../mddlib";
+import { FunctionNode, MDDBaseOperators, SimpleOperandFactory, ValueNode } from "mddlib-ts";
 import { BaseLoader } from "../BaseLoader";
 import { readTextFromStream } from "../StreamProvider";
 import { LogicalModelImpl } from "../../LogicalModelImpl";
@@ -248,7 +248,7 @@ abstract class BinaryNode implements FunctionNode {
     return par ? `(${text})` : text;
   }
 
-  getMDD(ddmanager: MDDManager): number {
+  getMDD(ddmanager: import("mddlib-ts").MDDManager): number {
     const left = this.left.getMDD(ddmanager);
     const right = this.right.getMDD(ddmanager);
     const combined = this.getOperation().combine(ddmanager, left, right);
@@ -258,7 +258,7 @@ abstract class BinaryNode implements FunctionNode {
   }
 
   protected abstract getSymbol(): string;
-  protected abstract getOperation(): MDDOperator;
+  protected abstract getOperation(): import("mddlib-ts").MDDOperator;
 }
 
 class AndNode extends BinaryNode {
@@ -266,7 +266,7 @@ class AndNode extends BinaryNode {
     return "&";
   }
 
-  protected getOperation(): MDDOperator {
+  protected getOperation(): import("mddlib-ts").MDDOperator {
     return MDDBaseOperators.AND;
   }
 }
@@ -276,7 +276,7 @@ class OrNode extends BinaryNode {
     return "|";
   }
 
-  protected getOperation(): MDDOperator {
+  protected getOperation(): import("mddlib-ts").MDDOperator {
     return MDDBaseOperators.OR;
   }
 }
@@ -293,7 +293,7 @@ class NotNode implements FunctionNode {
     return par ? `(${text})` : text;
   }
 
-  getMDD(ddmanager: MDDManager): number {
+  getMDD(ddmanager: import("mddlib-ts").MDDManager): number {
     const arg = this.arg.getMDD(ddmanager);
     const result = ddmanager.not(arg);
     ddmanager.free(arg);

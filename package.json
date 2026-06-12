@@ -16,10 +16,13 @@
       "default": "./dist/index.js"
     }
   },
+  "trustedDependencies": [
+    "mddlib-ts"
+  ],
   "scripts": {
+    "build:mddlib": "tsc -p node_modules/mddlib-ts/tsconfig.build.json",
     "build": "tsc -p tsconfig.build.json",
-    "init:submodule": "git submodule update --init --recursive -- src/vendor/mddlib-ts",
-    "prepare": "npm run init:submodule && npm run build",
+    "prepare": "npm run build:mddlib && npm run build",
     "prepack": "npm run build",
     "test": "jest --runInBand",
     "test:watch": "jest --watch"
@@ -29,7 +32,8 @@
     "url": "https://github.com/goncaloacbsilva/bioLQM-io-ts.git"
   },
   "dependencies": {
-    "fast-xml-parser": "^4.5.0"
+    "fast-xml-parser": "^4.5.0",
+    "mddlib-ts": "git+https://github.com/goncaloacbsilva/mddlib-ts.git"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",

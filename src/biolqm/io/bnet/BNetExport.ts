@@ -1,4 +1,4 @@
-import { PathSearcher } from "../../../mddlib";
+import { PathSearcher } from "mddlib-ts";
 import { BaseExporter } from "../BaseExporter";
 
 export class BNetExport extends BaseExporter {
