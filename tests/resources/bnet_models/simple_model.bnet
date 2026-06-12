@@ -1,0 +1,6 @@
+targets, factors
+# repeated assignments should be OR-combined
+A, B
+A, C
+B, !C
+C, 1
