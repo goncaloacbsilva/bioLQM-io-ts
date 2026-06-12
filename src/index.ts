@@ -13,3 +13,4 @@ export * from "./biolqm/io/sbml/SBMLqualImport";
 export * from "./biolqm/metadata/Annotator";
 export * from "./biolqm/metadata/Pair";
 export * from "./biolqm/metadata/validations/PatternValidator";
+export * from "./biolqm/io/StreamProvider";
