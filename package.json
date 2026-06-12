@@ -18,7 +18,8 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "prepare": "npm run build",
+    "init:submodule": "git submodule update --init --recursive -- src/vendor/mddlib-ts",
+    "prepare": "npm run init:submodule && npm run build",
     "prepack": "npm run build",
     "test": "jest --runInBand",
     "test:watch": "jest --watch"

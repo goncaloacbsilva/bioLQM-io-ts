@@ -20,7 +20,7 @@ The package uses:
 
 - Bun for dependency management
 - Jest for tests
-- a vendored `mddlib-ts` source copy for MDD operations
+- a vendored `mddlib-ts` Git submodule for MDD operations
 
 ## Requirements
 
@@ -122,7 +122,7 @@ or:
 bun install
 ```
 
-The package `prepare` script builds the package during Git-based installation.
+The package `prepare` script initializes the vendored `mddlib-ts` submodule and builds the package during Git-based installation.
 
 ### Import From Your Project
 
@@ -166,7 +166,7 @@ await LQMServiceManager.save(model, "saved-model.bnet", "bnet");
 
 ### Notes
 
-- this package vendors `mddlib-ts` source under `src/vendor/mddlib-ts`
+- this package vendors `mddlib-ts` as a Git submodule under `src/vendor/mddlib-ts`
 - the main entrypoint is `dist/index.js`
 - TypeScript declarations are exposed through `dist/index.d.ts`
 - pinning a commit hash is the safest way to keep builds reproducible
@@ -175,7 +175,7 @@ await LQMServiceManager.save(model, "saved-model.bnet", "bnet");
 
 - `src/biolqm/io/sbml/`: ported sbml package
 - `src/biolqm/io/bnet/`: ported bnet package
-- `src/vendor/mddlib-ts/`: vendored `mddlib-ts` source used for MDD operations
+- `src/vendor/mddlib-ts/`: vendored `mddlib-ts` submodule used for MDD operations
 - `src/biolqm/`: minimal supporting `bioLQM` classes
 - `src/_jsbml/`: internal JSBML subset required by the sbml package
 - `tests/`: translated tests for the supported packages
