@@ -1,19 +1,20 @@
 # bioLQM-io-ts
 
-TypeScript port of the [bioLQM](https://github.com/colomoto/bioLQM) SBML I/O package.
+TypeScript port of selected [bioLQM](https://github.com/colomoto/bioLQM) I/O packages.
 
-This package currently focuses on `src/main/java/org/colomoto/biolqm/io/sbml` and the minimum additional `bioLQM` and `JSBML` classes required to load and save SBML-qual models.
+This package currently includes `sbml` and `bnet`, plus the minimum additional `bioLQM` and `JSBML` classes required to load and save supported models.
 
 ## Overview
 
-`bioLQM-io-ts` is a focused port of the SBML-qual import/export layer from `bioLQM`.
+`bioLQM-io-ts` is a focused port of selected import/export layers from `bioLQM`.
 
 The scope of this package is intentionally limited:
 
 - `org.colomoto.biolqm.io.sbml`
+- `org.colomoto.biolqm.io.bnet`
 - the minimum `bioLQM` model and metadata classes needed by that package
 - an internal `_jsbml` folder containing the translated subset of JSBML needed by the sbml package
-- only the tests related to the sbml package
+- only the tests related to the supported packages
 
 The package uses:
 
@@ -62,7 +63,7 @@ Generated artifacts are written to:
 
 ## Run Tests
 
-Run the sbml-related Jest suite:
+Run the Jest suite:
 
 ```bash
 bun test
@@ -129,7 +130,7 @@ The package `prepare` script builds the package during Git-based installation.
 Example:
 
 ```ts
-import { LQMServiceManager, SBMLFormat } from "biolqm-io-ts";
+import { BNetFormat, LQMServiceManager, SBMLFormat } from "biolqm-io-ts";
 ```
 
 Example loading an SBML-qual file:
@@ -140,12 +141,28 @@ import { LQMServiceManager } from "biolqm-io-ts";
 const model = await LQMServiceManager.load("model.sbml");
 ```
 
+Example loading a BoolNet file:
+
+```ts
+import { LQMServiceManager } from "biolqm-io-ts";
+
+const model = await LQMServiceManager.load("model.bnet");
+```
+
 Example saving a model:
 
 ```ts
 import { LQMServiceManager } from "biolqm-io-ts";
 
 await LQMServiceManager.save(model, "saved-model.sbml", "sbml");
+```
+
+Example saving as BoolNet:
+
+```ts
+import { LQMServiceManager } from "biolqm-io-ts";
+
+await LQMServiceManager.save(model, "saved-model.bnet", "bnet");
 ```
 
 ### Notes
@@ -158,71 +175,16 @@ await LQMServiceManager.save(model, "saved-model.sbml", "sbml");
 ## Project Layout
 
 - `src/biolqm/io/sbml/`: ported sbml package
+- `src/biolqm/io/bnet/`: ported bnet package
 - `src/biolqm/`: minimal supporting `bioLQM` classes
 - `src/_jsbml/`: internal JSBML subset required by the sbml package
-- `tests/`: sbml-related translated tests only
+- `tests/`: translated tests for the supported packages
+- `tests/resources/bnet_models/`: bnet fixtures used by the test suite
 - `tests/resources/sbml_models/`: sbml fixtures used by the test suite
-
-## Java Package Mapping
-
-The original Java package layout maps to the TypeScript source tree as follows.
-
-### `org.colomoto.biolqm.io.sbml`
-
-Available under:
-
-- [src/biolqm/io/sbml/SBMLFormat.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/io/sbml/SBMLFormat.ts:1)
-- [src/biolqm/io/sbml/SBMLQualBundle.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/io/sbml/SBMLQualBundle.ts:1)
-- [src/biolqm/io/sbml/SBMLqualExport.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/io/sbml/SBMLqualExport.ts:1)
-- [src/biolqm/io/sbml/SBMLqualHelper.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/io/sbml/SBMLqualHelper.ts:1)
-- [src/biolqm/io/sbml/SBMLqualImport.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/io/sbml/SBMLqualImport.ts:1)
-
-### `org.colomoto.biolqm`
-
-Minimal required support is available under:
-
-- [src/biolqm/LogicalModel.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/LogicalModel.ts:1)
-- [src/biolqm/LogicalModelImpl.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/LogicalModelImpl.ts:1)
-- [src/biolqm/NodeInfo.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/NodeInfo.ts:1)
-- [src/biolqm/ModelLayout.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/ModelLayout.ts:1)
-- [src/biolqm/ConnectivityMatrix.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/ConnectivityMatrix.ts:1)
-
-### `org.colomoto.biolqm.io`
-
-Minimal required I/O support is available under:
-
-- [src/biolqm/io/AbstractFormat.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/io/AbstractFormat.ts:1)
-- [src/biolqm/io/BaseExporter.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/io/BaseExporter.ts:1)
-- [src/biolqm/io/BaseLoader.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/io/BaseLoader.ts:1)
-- [src/biolqm/io/LogicalModelFormat.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/io/LogicalModelFormat.ts:1)
-- [src/biolqm/io/ModelExporter.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/io/ModelExporter.ts:1)
-- [src/biolqm/io/ModelLoader.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/io/ModelLoader.ts:1)
-- [src/biolqm/io/StreamProvider.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/io/StreamProvider.ts:1)
-
-### `org.colomoto.biolqm.metadata`
-
-Minimal annotation support is available under:
-
-- [src/biolqm/metadata/AnnotationModule.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/metadata/AnnotationModule.ts:1)
-- [src/biolqm/metadata/Annotator.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/metadata/Annotator.ts:1)
-- [src/biolqm/metadata/Pair.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/metadata/Pair.ts:1)
-- [src/biolqm/metadata/annotations/Annotation.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/metadata/annotations/Annotation.ts:1)
-- [src/biolqm/metadata/annotations/Metadata.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/metadata/annotations/Metadata.ts:1)
-- [src/biolqm/metadata/annotations/URI.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/metadata/annotations/URI.ts:1)
-- [src/biolqm/metadata/constants/Collection.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/metadata/constants/Collection.ts:1)
-- [src/biolqm/metadata/constants/Qualifier.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/metadata/constants/Qualifier.ts:1)
-- [src/biolqm/metadata/validations/PatternValidator.ts](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/biolqm/metadata/validations/PatternValidator.ts:1)
-
-### `org.sbml.jsbml`
-
-The translated subset used by this package is available internally under:
-
-- [src/_jsbml](/Users/goncalosilva/Documents/MEIC/TESE/bioLQM-js/bioLQM-io-ts/src/_jsbml)
-
-This is not intended as a complete standalone JSBML port. It only contains the classes needed by the current sbml package scope.
 
 ## Notes
 
-- only the sbml-related tests from the original project are included
+- supported formats currently include `sbml` and `bnet`
+- only the tests related to the supported packages from the original project are included
 - the internal `_jsbml` layer is intentionally partial
 - metadata support is intentionally scoped to what the sbml package and translated tests require
