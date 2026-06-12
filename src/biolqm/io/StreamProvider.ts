@@ -1,32 +1,43 @@
-import * as fs from "fs";
-import * as path from "path";
-
 export interface StreamProvider {
-  output(pattern?: string): fs.WriteStream;
-  input(pattern?: string): fs.ReadStream;
-  getPath(pattern?: string): string;
+  output(pattern?: string): Promise<WritableStream<Uint8Array>>;
+  input(pattern?: string): Promise<ReadableStream<Uint8Array>>;
+  getPath?(pattern?: string): string;
 }
 
-class StreamProviderFileImpl implements StreamProvider {
-  constructor(private readonly filePath: string) {}
+export async function readTextFromStream(stream: ReadableStream<Uint8Array>): Promise<string> {
+  const reader = stream.getReader();
+  const decoder = new TextDecoder();
+  let result = "";
 
-  getPath(pattern = "$f"): string {
-    return pattern === "$f" ? this.filePath : pattern.replace("$f", this.filePath);
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        break;
+      }
+      if (value != null) {
+        result += decoder.decode(value, { stream: true });
+      }
+    }
+    result += decoder.decode();
+  } finally {
+    reader.releaseLock();
   }
 
-  output(pattern = "$f"): fs.WriteStream {
-    const target = this.getPath(pattern);
-    fs.mkdirSync(path.dirname(target), { recursive: true });
-    return fs.createWriteStream(target, { encoding: "utf-8" });
-  }
-
-  input(pattern = "$f"): fs.ReadStream {
-    return fs.createReadStream(this.getPath(pattern), { encoding: "utf-8" });
-  }
+  return result;
 }
 
-export const StreamProvider = {
-  create(filePath: string): StreamProvider {
-    return new StreamProviderFileImpl(filePath);
+export async function writeTextToStream(
+  stream: WritableStream<Uint8Array>,
+  content: string
+): Promise<void> {
+  const writer = stream.getWriter();
+  const encoder = new TextEncoder();
+
+  try {
+    await writer.write(encoder.encode(content));
+  } finally {
+    await writer.close();
+    writer.releaseLock();
   }
-};
+}

@@ -1,4 +1,3 @@
-import * as fs from "fs";
 import { XMLParser } from "fast-xml-parser";
 import { ASTNode, ASTNodeType } from "../../ASTNode";
 import { Compartment } from "../../Compartment";
@@ -15,6 +14,7 @@ import { OutputTransitionEffect } from "../../ext/qual/OutputTransitionEffect";
 import { InputTransitionEffect } from "../../ext/qual/InputTransitionEffect";
 import { Sign } from "../../ext/qual/Sign";
 import { FunctionTerm } from "../../ext/qual/FunctionTerm";
+import { readTextFromStream } from "../../../biolqm/io/StreamProvider";
 
 function ensureArray<T>(value: T | T[] | undefined): T[] {
   if (value == null) {
@@ -100,16 +100,12 @@ export class SBMLReader {
     trimValues: false
   });
 
-  readSBML(filePath: string): SBMLDocument {
-    return this.parse(fs.readFileSync(filePath, "utf-8"));
+  readSBMLFromString(xml: string): SBMLDocument {
+    return this.parse(xml);
   }
 
-  async readSBMLFromStream(stream: fs.ReadStream): Promise<SBMLDocument> {
-    const chunks: string[] = [];
-    for await (const chunk of stream) {
-      chunks.push(String(chunk));
-    }
-    return this.parse(chunks.join(""));
+  async readSBMLFromStream(stream: ReadableStream<Uint8Array>): Promise<SBMLDocument> {
+    return this.parse(await readTextFromStream(stream));
   }
 
   parse(xml: string): SBMLDocument {

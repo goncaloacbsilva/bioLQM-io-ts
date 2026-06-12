@@ -1,4 +1,3 @@
-import * as fs from "fs";
 import { Annotation } from "./Annotation";
 import { CVTerm } from "./CVTerm";
 import { SBMLDocument } from "./SBMLDocument";
@@ -60,9 +59,15 @@ function renderAnnotation(annotation: Annotation, metaId: string, isModel: boole
 }
 
 export class SBMLWriter {
-  write(document: SBMLDocument, output: fs.WriteStream): void {
-    output.write(this.toXML(document));
-    output.end();
+  async write(document: SBMLDocument, output: WritableStream<Uint8Array>): Promise<void> {
+    const writer = output.getWriter();
+    const encoder = new TextEncoder();
+    try {
+      await writer.write(encoder.encode(this.toXML(document)));
+    } finally {
+      await writer.close();
+      writer.releaseLock();
+    }
   }
 
   toXML(document: SBMLDocument): string {

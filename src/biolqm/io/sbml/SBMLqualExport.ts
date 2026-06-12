@@ -4,7 +4,6 @@ import {
   PathSearcher,
   VariableEffect
 } from "mddlib-ts";
-import * as fs from "fs";
 import { Annotation as JSBMLAnnotation } from "../../../_jsbml/Annotation";
 import { ASTNode, ASTNodeType } from "../../../_jsbml/ASTNode";
 import { CVTerm } from "../../../_jsbml/CVTerm";
@@ -31,6 +30,7 @@ import { Pair } from "../../metadata/Pair";
 import { URI } from "../../metadata/annotations/URI";
 import { Qualifier } from "../../metadata/constants/Qualifier";
 import { BaseExporter } from "../BaseExporter";
+import { writeTextToStream } from "../StreamProvider";
 import { SBMLQualBundle } from "./SBMLQualBundle";
 import { SBMLqualHelper } from "./SBMLqualHelper";
 
@@ -57,9 +57,9 @@ export class SBMLqualExport extends BaseExporter {
     this.qualBundle = SBMLqualHelper.newBundle(addLayout);
   }
 
-  protected export(): void {
+  protected async export(): Promise<void> {
     const writer = new SBMLWriter();
-    fs.writeFileSync(this.streams!.getPath(), writer.toXML(this.getSBMLDocument()), "utf-8");
+    await writeTextToStream(await this.streams!.output(), writer.toXML(this.getSBMLDocument()));
   }
 
   getSBMLDocument(): SBMLDocument {

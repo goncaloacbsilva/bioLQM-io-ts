@@ -8,7 +8,7 @@ import { SBMLReader } from "../../../_jsbml/xml/stax/SBMLReader";
 import { SBMLQualBundle } from "./SBMLQualBundle";
 
 export class SBMLqualHelper {
-  static async parseInputStream(stream: NodeJS.ReadableStream): Promise<SBMLQualBundle> {
+  static async parseInputStream(stream: ReadableStream<Uint8Array>): Promise<SBMLQualBundle> {
     const document = await new SBMLReader().readSBMLFromStream(stream as any);
     return this.getQualitativeModel(document);
   }

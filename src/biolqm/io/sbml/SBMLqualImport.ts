@@ -38,7 +38,7 @@ export class SBMLqualImport extends BaseLoader {
   }
 
   protected async performTask(): Promise<LogicalModel> {
-    this.qualBundle = await SBMLqualHelper.parseInputStream(this.streams!.input());
+    this.qualBundle = await SBMLqualHelper.parseInputStream(await this.streams!.input());
     this.identifier2index = new Map();
 
     const variables = this.getVariables();
