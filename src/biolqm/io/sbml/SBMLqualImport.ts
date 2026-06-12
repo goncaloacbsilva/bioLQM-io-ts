@@ -5,7 +5,7 @@ import {
   MDDOperator,
   MDDVariable,
   MDDVariableFactory
-} from "mddlib-ts";
+} from "../../../mddlib";
 import { ASTNode, ASTNodeType } from "../../../_jsbml/ASTNode";
 import { Layout } from "../../../_jsbml/ext/layout/Layout";
 import { BoundingBox } from "../../../_jsbml/ext/layout/BoundingBox";

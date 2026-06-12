@@ -1,4 +1,4 @@
-import type { MDDManager } from "mddlib-ts";
+import type { MDDManager } from "../mddlib";
 import { Annotator } from "./metadata/Annotator";
 import { ModelLayout } from "./ModelLayout";
 import { NodeInfo } from "./NodeInfo";

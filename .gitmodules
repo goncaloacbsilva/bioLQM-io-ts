@@ -1,0 +1,3 @@
+[submodule "src/vendor/mddlib-ts"]
+	path = src/vendor/mddlib-ts
+	url = git@github.com:goncaloacbsilva/mddlib-ts.git
