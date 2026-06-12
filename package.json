@@ -16,9 +16,11 @@
       "default": "./dist/index.js"
     }
   },
+  "trustedDependencies": [
+    "mddlib-ts"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "prepare": "npm run build",
     "prepack": "npm run build",
     "test": "jest --runInBand",
     "test:watch": "jest --watch"
