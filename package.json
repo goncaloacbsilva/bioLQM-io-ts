@@ -20,7 +20,9 @@
     "mddlib-ts"
   ],
   "scripts": {
+    "build:mddlib": "tsc -p node_modules/mddlib-ts/tsconfig.build.json",
     "build": "tsc -p tsconfig.build.json",
+    "prepare": "npm run build:mddlib && npm run build",
     "prepack": "npm run build",
     "test": "jest --runInBand",
     "test:watch": "jest --watch"
