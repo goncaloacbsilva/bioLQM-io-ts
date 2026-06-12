@@ -1,6 +1,6 @@
 {
-  "name": "biolqm-io-ts",
-  "version": "0.1.0",
+  "name": "mddlib-ts",
+  "version": "1.0.0",
   "type": "commonjs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,21 +19,19 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "prepare": "npm run build",
-    "prepack": "npm run build",
+    "release": "release-it",
     "test": "jest --runInBand",
     "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/goncaloacbsilva/bioLQM-io-ts.git"
-  },
-  "dependencies": {
-    "fast-xml-parser": "^4.5.0"
+    "url": "https://github.com/goncaloacbsilva/mddlib-ts.git"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "jest": "^29.7.0",
-    "ts-jest": "^29.4.11",
-    "typescript": "^5.9.3"
+    "release-it": "^20.0.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.3"
   }
 }
